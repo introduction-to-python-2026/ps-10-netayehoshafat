@@ -1,19 +1,13 @@
 import numpy as np
-import matplotlib.image as mpimg
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-from scipy import signal
-from scipy.signal import convolve2d
 from PIL import Image
+from scipy.signal import convolve2d
 
 # LOAD_IMAGE
 def load_image(filename):
-    img = mpimg.imread(filename)
-    # Optional safety: Ensure 0-255 range if image loads as 0-1
-    if img.dtype == np.float32 or img.dtype == np.float64:
-        img = (img * 255).astype(np.uint8)
-    return img
-   
+    img = Image.open(filename)
+    img_array = np.array(img)
+    return img_array
+
 # EDGE_DETECTION
 def edge_detection(image_array):
     if len(image_array.shape) == 3:
@@ -30,11 +24,8 @@ def edge_detection(image_array):
         [-2,  0,  2],
         [-1,  0,  1]
     ])
-
     edgeY = convolve2d(grayscale_image, kernelY, mode='same', boundary='fill', fillvalue=0)
     edgeX = convolve2d(grayscale_image, kernelX, mode='same', boundary='fill', fillvalue=0)
-
-    # 4. Magnitude
     edgeMAG = np.sqrt(edgeX**2 + edgeY**2)
     
     return edgeMAG
