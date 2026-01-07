@@ -1,5 +1,8 @@
 import numpy as np
 import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+from scipy import signal
 from scipy.signal import convolve2d
 
 # LOAD_IMAGE
