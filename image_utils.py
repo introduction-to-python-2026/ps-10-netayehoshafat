@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from scipy import signal
 from scipy.signal import convolve2d
+from PIL import Image
 
 # LOAD_IMAGE
 def load_image(filename):
@@ -15,7 +16,10 @@ def load_image(filename):
    
 # EDGE_DETECTION
 def edge_detection(image_array):
-    grayscale_image = np.mean(image_array, axis=2)
+    if len(image_array.shape) == 3:
+        grayscale_image = np.mean(image_array, axis=2)
+    else:
+        grayscale_image = image_array
     kernelY = np.array([
         [ 1,  2,  1],
         [ 0,  0,  0],
